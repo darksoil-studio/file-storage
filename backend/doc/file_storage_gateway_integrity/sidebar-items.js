@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["LinkTypes"],"fn":["__num_link_types"]};
