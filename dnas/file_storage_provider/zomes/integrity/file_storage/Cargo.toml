@@ -1,0 +1,19 @@
+[package]
+name = "file_storage_integrity"
+version = "0.2.0"
+edition = "2021"
+description = "File storage zome to store files in holochain"
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+name = "file_storage_integrity"
+
+[dependencies]
+hdi = { workspace = true }
+
+serde = { workspace = true }
+
+[features]
+default = ["externs"]
+externs = []

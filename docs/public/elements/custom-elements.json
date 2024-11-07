@@ -1,0 +1,793 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/context.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "fileStorageClientContext"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "fileStorageClientContext",
+          "declaration": {
+            "name": "fileStorageClientContext",
+            "module": "src/context.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/file-storage-client.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "FileStorageClient",
+          "members": [
+            {
+              "kind": "method",
+              "name": "uploadFile",
+              "return": {
+                "type": {
+                  "text": "Promise<EntryHash>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "file",
+                  "type": {
+                    "text": "File"
+                  },
+                  "description": "file to split and upload"
+                },
+                {
+                  "name": "onProgress",
+                  "default": "undefined",
+                  "type": {
+                    "text": "| undefined\n      | ((percentatgeProgress: number, bytesSent: number) => void)"
+                  }
+                },
+                {
+                  "name": "chunkSize",
+                  "default": "256 * 1024",
+                  "type": {
+                    "text": "number"
+                  },
+                  "description": "chunk size to split the file, default 256 KB"
+                }
+              ],
+              "description": "Upload a file to the file_storage zome, splitting it into chunks"
+            },
+            {
+              "kind": "method",
+              "name": "downloadFile",
+              "return": {
+                "type": {
+                  "text": "Promise<File>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "fileHash",
+                  "type": {
+                    "text": "EntryHash"
+                  }
+                }
+              ],
+              "description": "Downloads the whole file with the given hash"
+            },
+            {
+              "kind": "method",
+              "name": "getFileMetadata",
+              "return": {
+                "type": {
+                  "text": "Promise<FileMetadata>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "fileHash",
+                  "type": {
+                    "text": "EntryHash"
+                  },
+                  "description": "the hash of the file"
+                }
+              ],
+              "description": "Gets only the metadata of the file with the given hash\nThis is specially useful if you want to fetch the chunks one by one"
+            },
+            {
+              "kind": "method",
+              "name": "fetchChunk",
+              "return": {
+                "type": {
+                  "text": "Promise<Blob>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "fileChunkHash",
+                  "type": {
+                    "text": "EntryHash"
+                  }
+                }
+              ],
+              "description": "Fetch the chunk identified with the given hash\nThis is useful if used with the chunk hashes received with `getFileMetadata`"
+            },
+            {
+              "kind": "method",
+              "name": "_splitFile",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Blob[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "file",
+                  "type": {
+                    "text": "File"
+                  }
+                },
+                {
+                  "name": "chunkSize",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "description": "Private helpers"
+            },
+            {
+              "kind": "method",
+              "name": "_createChunk",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Promise<EntryHash>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "chunk",
+                  "type": {
+                    "text": "Blob"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_callZome",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "fn_name",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "payload",
+                  "type": {
+                    "text": "any"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FileStorageClient",
+          "declaration": {
+            "name": "FileStorageClient",
+            "module": "src/file-storage-client.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/holochain-dropzone.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "HolochainDropzone",
+          "members": [
+            {
+              "kind": "field",
+              "name": "fileStorageClient",
+              "type": {
+                "text": "FileStorageClient"
+              },
+              "default": "fileStorageClient"
+            },
+            {
+              "kind": "method",
+              "name": "uploadFiles",
+              "parameters": [
+                {
+                  "name": "files",
+                  "type": {
+                    "text": "Dropzone.DropzoneFile[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_uploadFilesToHolochain",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "dropzoneFiles",
+                  "type": {
+                    "text": "Dropzone.DropzoneFile[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "url",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"https://holochain.org/\""
+            }
+          ],
+          "superclass": {
+            "name": "Dropzone",
+            "package": "@scoped-elements/dropzone"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "HolochainDropzone",
+          "declaration": {
+            "name": "HolochainDropzone",
+            "module": "src/holochain-dropzone.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "\"./file-storage-client.js\""
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "\"./holochain-dropzone.js\""
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "\"./types.js\""
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "\"./context.js\""
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "\"@scoped-elements/dropzone\""
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/local-storage.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "storeImage",
+          "parameters": [
+            {
+              "name": "imageHash",
+              "type": {
+                "text": "EntryHash"
+              }
+            },
+            {
+              "name": "image",
+              "type": {
+                "text": "string"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "getImage",
+          "return": {
+            "type": {
+              "text": "Promise<string | undefined>"
+            }
+          },
+          "parameters": [
+            {
+              "name": "imageHash",
+              "type": {
+                "text": "EntryHash"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "storeImage",
+          "declaration": {
+            "name": "storeImage",
+            "module": "src/local-storage.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getImage",
+          "declaration": {
+            "name": "getImage",
+            "module": "src/local-storage.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/mocks.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "FileStorageZomeMock",
+          "members": [
+            {
+              "kind": "field",
+              "name": "metadata",
+              "default": "new EntryHashMap()"
+            },
+            {
+              "kind": "field",
+              "name": "chunks",
+              "default": "new EntryHashMap()"
+            },
+            {
+              "kind": "method",
+              "name": "create_file_metadata",
+              "parameters": [
+                {
+                  "name": "fileMetadata",
+                  "type": {
+                    "text": "FileMetadata"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "get_file_metadata",
+              "parameters": [
+                {
+                  "name": "fileHash",
+                  "type": {
+                    "text": "HoloHash"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "create_file_chunk",
+              "parameters": [
+                {
+                  "name": "fileChunk",
+                  "type": {
+                    "text": "Uint8Array"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "get_file_chunk",
+              "parameters": [
+                {
+                  "name": "fileChunkHash",
+                  "type": {
+                    "text": "HoloHash"
+                  }
+                }
+              ]
+            }
+          ],
+          "superclass": {
+            "name": "ZomeMock",
+            "package": "@tnesh-stack/utils"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FileStorageZomeMock",
+          "declaration": {
+            "name": "FileStorageZomeMock",
+            "module": "src/mocks.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/types.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/elements/file-storage-context.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "FileStorageContext",
+          "members": [
+            {
+              "kind": "field",
+              "name": "client",
+              "type": {
+                "text": "FileStorageClient"
+              },
+              "attribute": "client"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "client",
+              "type": {
+                "text": "FileStorageClient"
+              },
+              "fieldName": "client"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "file-storage-context",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FileStorageContext",
+          "declaration": {
+            "name": "FileStorageContext",
+            "module": "src/elements/file-storage-context.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "file-storage-context",
+          "declaration": {
+            "name": "FileStorageContext",
+            "module": "src/elements/file-storage-context.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/elements/show-image.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "ShowImage",
+          "cssParts": [
+            {
+              "description": "Style the dropzone itself",
+              "name": "dropzone"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "imageHash",
+              "type": {
+                "text": "EntryHash"
+              },
+              "description": "REQUIRED. The hash of the image to be rendered",
+              "attribute": "imageHash"
+            },
+            {
+              "kind": "method",
+              "name": "renderImage",
+              "parameters": [
+                {
+                  "name": "data",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            }
+          ],
+          "events": [
+            {
+              "description": "Fired after having uploaded the file",
+              "name": "file-uploaded"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "imageHash",
+              "type": {
+                "text": "EntryHash"
+              },
+              "description": "REQUIRED. The hash of the image to be rendered",
+              "fieldName": "imageHash"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "show-image",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ShowImage",
+          "declaration": {
+            "name": "ShowImage",
+            "module": "src/elements/show-image.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "show-image",
+          "declaration": {
+            "name": "ShowImage",
+            "module": "src/elements/show-image.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/elements/upload-files.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "UploadFiles",
+          "cssParts": [
+            {
+              "description": "Style the dropzone itself",
+              "name": "dropzone"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "description": "The name of the field if this element is used inside a form\nRequired only if the element is used inside a form",
+              "attribute": "name"
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether this field is required if this element is used inside a form",
+              "attribute": "required"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether this field is disabled if this element is used inside a form",
+              "attribute": "disabled"
+            },
+            {
+              "kind": "field",
+              "name": "defaultValue",
+              "type": {
+                "text": "EntryHash | Array<EntryHash>"
+              },
+              "description": "The default value that this element will take if it is resetted in a form",
+              "attribute": "defaultValue"
+            },
+            {
+              "kind": "field",
+              "name": "oneFile",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether this element should allow only file to be uploaded",
+              "attribute": "one-file"
+            },
+            {
+              "kind": "field",
+              "name": "acceptedFiles",
+              "type": {
+                "text": "| string\n    | undefined"
+              },
+              "default": "undefined",
+              "description": "The type of files accepted by this element\nLearn how to use this here: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept",
+              "attribute": "accepted-files"
+            },
+            {
+              "kind": "method",
+              "name": "reset"
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity"
+            },
+            {
+              "kind": "method",
+              "name": "buildDropzone",
+              "parameters": [
+                {
+                  "name": "dropzoneElement",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                },
+                {
+                  "name": "options",
+                  "type": {
+                    "text": "DropzoneOptions"
+                  }
+                }
+              ]
+            }
+          ],
+          "events": [
+            {
+              "description": "Fired after having uploaded the file",
+              "name": "file-uploaded"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "description": "The name of the field if this element is used inside a form\nRequired only if the element is used inside a form",
+              "fieldName": "name"
+            },
+            {
+              "name": "required",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether this field is required if this element is used inside a form",
+              "fieldName": "required"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether this field is disabled if this element is used inside a form",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "defaultValue",
+              "type": {
+                "text": "EntryHash | Array<EntryHash>"
+              },
+              "description": "The default value that this element will take if it is resetted in a form",
+              "fieldName": "defaultValue"
+            },
+            {
+              "name": "one-file",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether this element should allow only file to be uploaded",
+              "fieldName": "oneFile"
+            },
+            {
+              "name": "accepted-files",
+              "type": {
+                "text": "| string\n    | undefined"
+              },
+              "default": "undefined",
+              "description": "The type of files accepted by this element\nLearn how to use this here: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept",
+              "resolveInitializer": {
+                "module": "src/elements/upload-files.ts"
+              },
+              "fieldName": "acceptedFiles"
+            }
+          ],
+          "superclass": {
+            "name": "DropzoneElement",
+            "package": "@scoped-elements/dropzone"
+          },
+          "tagName": "upload-files",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "UploadFiles",
+          "declaration": {
+            "name": "UploadFiles",
+            "module": "src/elements/upload-files.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "upload-files",
+          "declaration": {
+            "name": "UploadFiles",
+            "module": "src/elements/upload-files.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

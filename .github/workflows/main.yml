@@ -1,0 +1,76 @@
+name: "Build and cache zomes"
+on:
+  push: 
+    branches: [ main, nixify ]
+  pull_request: 
+    branches: [ main, nixify ]
+
+jobs:
+  build-and-cache-zomes:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, macos-13]
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install nix
+        uses: cachix/install-nix-action@v27
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          nix_path: nixpkgs=channel:nixos-24.05
+
+      - uses: cachix/cachix-action@v15
+        with:
+          name: holochain-ci
+
+      - uses: cachix/cachix-action@v15
+        with:
+          name: darksoil-studio
+
+      - name: Install and test
+        run: |
+          nix develop --no-update-lock-file --accept-flake-config --command bash -c "npm i && npm t && npm run -w @darksoil-studio/file-storage-zome build"
+
+      - name: Install jq
+        uses: dcarbone/install-jq-action@v2.1.0
+    
+      - name: Build debug zomes
+        env:
+          CACHIX_AUTH_TOKEN: "${{ secrets.CACHIX_TOKEN_HOLOCHAIN_OPEN_DEV }}"
+        run: |
+          cachix watch-exec darksoil-studio -- nix build --no-update-lock-file --accept-flake-config -L .#file_storage_integrity.meta.debug
+          cachix push darksoil-studio $(nix path-info --json --accept-flake-config --no-warn-dirty .#file_storage_integrity.meta.debug | jq -r 'keys[0]')
+
+          cachix watch-exec darksoil-studio -- nix build --no-update-lock-file --accept-flake-config -L .#file_storage.meta.debug
+          cachix push darksoil-studio $(nix path-info --json --accept-flake-config --no-warn-dirty .#file_storage.meta.debug | jq -r 'keys[0]')
+    
+      - name: Pin debug zomes
+        if: github.event_name != 'pull_request'
+        env:
+          CACHIX_AUTH_TOKEN: "${{ secrets.CACHIX_TOKEN_HOLOCHAIN_OPEN_DEV }}"
+        run: |
+          cachix pin darksoil-studio file_storage_integrity_debug $(nix path-info --json --accept-flake-config --no-warn-dirty .#file_storage_integrity.meta.debug | jq -r 'keys[0]')
+
+          cachix pin darksoil-studio file_storage_debug $(nix path-info --json --accept-flake-config --no-warn-dirty .#file_storage.meta.debug | jq -r 'keys[0]')
+
+      - name: Build release zomes
+        if: matrix.os == 'ubuntu-latest'
+        env:
+          CACHIX_AUTH_TOKEN: "${{ secrets.CACHIX_TOKEN_HOLOCHAIN_OPEN_DEV }}"
+        run: |
+          cachix watch-exec darksoil-studio -- nix build --no-update-lock-file --accept-flake-config -L .#file_storage_integrity
+          cachix push darksoil-studio $(nix path-info --json --accept-flake-config --no-warn-dirty .#file_storage_integrity | jq -r 'keys[0]')
+
+          cachix watch-exec darksoil-studio -- nix build --no-update-lock-file --accept-flake-config -L .#file_storage
+          cachix push darksoil-studio $(nix path-info --json --accept-flake-config --no-warn-dirty .#file_storage | jq -r 'keys[0]')
+
+      - name: Pin release zomes
+        if: matrix.os == 'ubuntu-latest' && github.event_name != 'pull_request'
+        env:
+          CACHIX_AUTH_TOKEN: "${{ secrets.CACHIX_TOKEN_HOLOCHAIN_OPEN_DEV }}"
+        run: |
+          cachix pin darksoil-studio file_storage_integrity $(nix path-info --json --accept-flake-config --no-warn-dirty .#file_storage_integrity | jq -r 'keys[0]')
+
+          cachix pin darksoil-studio file_storage $(nix path-info --json --accept-flake-config --no-warn-dirty .#file_storage | jq -r 'keys[0]')

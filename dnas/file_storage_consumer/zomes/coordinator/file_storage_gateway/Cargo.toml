@@ -1,0 +1,16 @@
+[package]
+name = "file_storage_gateway"
+version = "0.0.1"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+name = "file_storage_gateway"
+
+[dependencies]
+hdk = { workspace = true }
+
+serde = { workspace = true }
+
+file_storage_gateway_integrity = { path = "../../integrity/file_storage_gateway" }
+file_storage_integrity = { path = "../../../../file_storage_provider/zomes/integrity/file_storage", default-features = false }

@@ -1,0 +1,23 @@
+{
+  "name": "@darksoil-studio/file-storage-dev",
+  "private": true,
+  "workspaces": [
+    "ui",
+    "tests"
+  ],
+  "scripts": {
+    "start": "AGENTS=2 pnpm network",
+    "network": "pnpm build:happs && UI_PORT=8888 concurrently -k \"pnpm -F @darksoil-studio/file-storage-zome start\" \"pnpm launch\" \"hc playground\"",
+    "launch": "concurrently-repeat  \"RUST_LOG=warn hc pilot dnas/file_storage_provider/workdir/file-storage-test.happ --ui-port $UI_PORT\" $AGENTS",
+    "test": "pnpm build:happs && pnpm -F tests test",
+    "build:happs": "nix build --no-update-lock-file -L .#file_storage_provider_test_happ.meta.debug -o dnas/file_storage_provider/workdir/file-storage-test.happ && nix build --no-update-lock-file -L .#file_storage_consumer_test_happ.meta.debug -o dnas/file_storage_consumer/workdir/file-storage-test.happ"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.1",
+    "concurrently-repeat": "^0.0.1",
+    "gh-pages": "^3.2.3",
+    "lit-html": "^2.6.1",
+    "new-port-cli": "^1.0.0"
+  },
+  "type": "module"
+}
