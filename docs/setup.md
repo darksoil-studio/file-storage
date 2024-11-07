@@ -16,63 +16,63 @@ This will do the following:
 
 Now you only need to integrate the zome's frontend in your web-app.
 
-2. Connect to Holochain with the `AppClient`, and create the `RolesStore` with it:
+2. Connect to Holochain with the `AppClient`, and create the `FileStorageClient` with it:
 
 ```js
-import { RolesStore, RolesClient } from "@darksoil-studio/file-storage-zome";
+import { FileStorageClient } from "@darksoil-studio/file-storage-zome";
 import { AppWebsocket } from "@holochain/client";
 
-async function setupRolesStore() {
+async function setupFileStorageClient() {
   // TODO: change "MY_APP_NAME" for the roleId that you can find in your "happ.yaml"
   const client = await AppWebsocket.connect();
 
   // TODO: change "MY_CELL_ROLE" for the roleId that you can find in your "happ.yaml"
-  return new RolesStore(new RolesClient(client, '<MY_CELL_ROLE>'));
+  return new FileStorageClient(client, '<MY_CELL_ROLE>');
 }
 ```
 
-3. Import the `<roles-context>` element and add it to your html **wrapping the whole section of your page in which you are going to be placing** the other elements from `@darksoil-studio/file-storage-zome`:
+3. Import the `<file-storage-context>` element and add it to your html **wrapping the whole section of your page in which you are going to be placing** the other elements from `@darksoil-studio/file-storage-zome`:
 
 ```js
 // This can be placed in the index.js, at the top level of your web-app.
-import "@darksoil-studio/file-storage-zome/elements/roles-context.js";
+import "@darksoil-studio/file-storage-zome/elements/file-storage-context.js";
 ```
 
-And then add the `<roles-context>` element in your html:
+And then add the `<file-storage-context>` element in your html:
 
 ```html
-<roles-context>
+<file-storage-context>
   <!-- Add here other elements from @darksoil-studio/file-storage-zome -->
-</roles-context>
+</file-storage-context>
 ```
 
-4. Attach the `rolesStore` to the `<roles-context>` element:
+4. Attach the `fileStorageClient` to the `<file-storage-context>` element:
 
-- Go to [this page](https://holochain-open-dev.github.io/reusable-modules/frontend/frameworks/), select the framework you are using, and follow its example.
+- Go to [this page](https://darksoil.studio/tnesh-stack/integrating-with-frameworks/), select the framework you are using, and follow its example.
 
-You need to set the `store` property of it to your already instantiated `RolesStore` object:
+You need to set the `client` property of it to your already instantiated `FileStorageClient` object:
 
 - If you **are using some JS framework**:
 
 ::: code-group
 ```html [React]
-<roles-context store={ rolesStore}><!-- ... --></roles-context>
+<file-storage-context client={fileStorageClient}><!-- ... --></file-storage-context>
 ```
 
 ```html [Angular]
-<roles-context [store]="rolesStore"><!-- ... --></roles-context>
+<file-storage-context [client]="fileStorageClient"><!-- ... --></file-storage-context>
 ```
 
 ```html [Vue]
-<roles-context :store="rolesStore"><!-- ... --></roles-context>
+<file-storage-context :client="fileStorageClient"><!-- ... --></file-storage-context>
 ```
 
 ```html [Svelte]
-<roles-context store={ rolesStore}><!-- ... --></roles-context>
+<file-storage-context client={fileStorageClient}><!-- ... --></file-storage-context>
 ```
 
 ```html [Lit]
-<roles-context .store=${ rolesStore}><!-- ... --></roles-context>
+<file-storage-context .client=${fileStorageClient}><!-- ... --></file-storage-context>
 ```
 :::
 
@@ -81,19 +81,20 @@ OR
 - If you **are not using any framework**:
 
 ```js
-const contextElement = document.querySelector("roles-context");
-contextElement.store = store;
+const contextElement = document.querySelector("file-storage-context");
+contextElement.client = client;
 ```
 
-> You can read more about the context pattern [here](https://holochain-open-dev.github.io/reusable-modules/frontend/using/#context).
+> [!NOTE]
+> You can read more about the context pattern [here](https://darksoil.studio/tnesh-stack/guides/custom-elements#context).
 
 5. [Choose which elements you need](?path=/docs/frontend-elements) and import them like this:
 
 ```js
-import "@darksoil-studio/file-storage-zome/dist/elements/roles-context.js";
+import "@darksoil-studio/file-storage-zome/dist/elements/file-storage-context.js";
 ```
 
-And then they are ready be used inside the `<roles-context>` just like any other HTML tag.
+And then they are ready be used inside the `<file-storage-context>` just like any other HTML tag.
 
 This will define all the elements from this module in the global `CustomElementsRegistry`. You can read more about Custom Elements [here](https://developers.google.com/web/fundamentals/web-components/customelements).
 
