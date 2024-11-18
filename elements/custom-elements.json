@@ -481,6 +481,30 @@
                 "text": "FileStorageClient"
               },
               "attribute": "client"
+            },
+            {
+              "kind": "field",
+              "name": "appClient",
+              "type": {
+                "text": "AppClient"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "role",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "role"
+            },
+            {
+              "kind": "field",
+              "name": "zome",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"file_storage\"",
+              "attribute": "zome"
             }
           ],
           "attributes": [
@@ -490,6 +514,21 @@
                 "text": "FileStorageClient"
               },
               "fieldName": "client"
+            },
+            {
+              "name": "role",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "role"
+            },
+            {
+              "name": "zome",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"file_storage\"",
+              "fieldName": "zome"
             }
           ],
           "superclass": {
