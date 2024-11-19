@@ -32,7 +32,7 @@ features:
     details: Using dropzone to see the upload progress.
     link: "/elements/upload-files.md" 
   - title: Embed images in your entries
-    details: Use "<show-image hash={imageHash}>" to directly show the uploaded image.
+    details: Use &lt;show-image hash={imageHash}&gt; to directly show the uploaded image.
     link: "/elements/show-image.md" 
 ---
 
