@@ -29,10 +29,10 @@ features:
   - title: Upload and download files
     details: Automatic handling of chunking for big files.
   - title: Plug-and-play UI element to upload files
-    details: Using `dropzone` to see the upload progress.
+    details: Using dropzone to see the upload progress.
     link: "/elements/upload-files.md" 
   - title: Embed images in your entries
-    details: Use `<show-image hash={imageHash}>` to directly show the uploaded image.
+    details: Use "<show-image hash={imageHash}>" to directly show the uploaded image.
     link: "/elements/show-image.md" 
 ---
 
