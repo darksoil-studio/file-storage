@@ -17,8 +17,8 @@ export default withMermaid({
     },
   },
   base: "/file-storage",
-  title: "@darksoil-studio/file-storage-zome",
-  description: "Roles zome for holochain apps",
+  title: "File Storage Zome",
+  description: "File Storage zome for holochain apps",
   srcExclude: ["public/**/*"],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config

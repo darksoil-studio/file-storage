@@ -10,13 +10,10 @@ nix run github:darksoil-studio/file-storage#scaffold
 ```
 
 This will do the following:
-  - Add the flake input for that repository in your `flake.nix`.
-  - Add the appropriate zome packages to the `dna.nix` that you select.
-  - Add the UI package for @darksoil-studio/file-storage-zome as a dependency of your UI package.
+  - Add the `github:darksoil-studio/file-storage` flake input to your `flake.nix`.
+  - Add the `file_storage` coordinator and integrity zome packages to the `dna.nix` that you select.
+  - Add the UI package for `@darksoil-studio/file-storage-zome` as a dependency of your UI package.
   - Add the `<file-storage-context>` element at the top level of your application.
-
-> [!NOTE]
-> You can read more about the context pattern [here](https://darksoil.studio/tnesh-stack/guides/custom-elements#context).
 
 That's it! You have now integrated the `file-storage` coordinator and integrity zomes and their UI into your app!
 

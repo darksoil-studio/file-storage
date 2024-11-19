@@ -61,7 +61,9 @@
                 --remote-zome-git-url github:darksoil-studio/file-storage \
                 --remote-zome-git-branch main-0.3 \
                 --remote-npm-package-name @darksoil-studio/file-storage-zome \
-                --remote-npm-package-path ui"
+                --remote-npm-package-path ui \
+                --context-element file-storage-context \
+                --context-element-import @darksoil-studio/file-storage-zome/dist/elements/file-storage-context.js"
           '';
         };
 
