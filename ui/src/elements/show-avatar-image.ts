@@ -74,7 +74,7 @@ export class ShowAvatarImage extends LitElement {
       complete: (d) => this.renderImage(d),
       pending: () =>
         html`<sl-skeleton
-          style="flex: 1; --border-radius: 50%; "
+          style="width: var(--size); height: var(--size); --border-radius: 50%; "
           effect="pulse"
         ></sl-skeleton> `,
       error: (e: any) =>
@@ -91,9 +91,8 @@ export class ShowAvatarImage extends LitElement {
       sharedStyles,
       css`
         :host {
-          display: flex;
-          width: 32px;
-          height: 32px;
+          display: contents;
+          --size: 32px;
         }
       `,
     ];
