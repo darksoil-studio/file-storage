@@ -27,6 +27,7 @@
       import "../src/elements/upload-files.ts";
       import "../src/elements/file-storage-context.ts";
       import "../src/elements/show-image.ts";
+      import "../src/elements/show-avatar-image.ts";
       import { css, html, LitElement } from "lit";
       import { ContextProvider } from "@lit/context";
       import { AppWebsocket } from "@holochain/client";
@@ -56,23 +57,28 @@
                   <form ${onSubmit((data) => {
                     console.log(data);
                     this.shadowRoot.querySelector("form").reset();
-                  })} style="display: flex; flex-direction: column; flex: 1">
+                  })} style="display: flex; flex-direction: row; flex: 1">
+                  <div style="display: flex; flex-direction: column;" >
                     <upload-files
                       id="uf"
                       .oneFile=${true}
                       required
                       name="file_hash"
-                      style="max-width: 20px; max-height:20px"
                       @file-uploaded=${(e) => {
                         this.hash = e.detail.file.hash;
                       }}
                     ></upload-files>
+                    <input type="submit"></input>
+                    </div>
                     ${
                       this.hash
                         ? html`
                             <div
                               style="display: flex; flex-direction: row; flex: 1"
                             >
+                              <show-avatar-image
+                                .imageHash=${this.hash}
+                              ></show-avatar-image>
                               <show-image
                                 .imageHash=${this.hash}
                                 style="width: 500px; height: 500px; border-radius: 12px"
@@ -80,7 +86,6 @@
 
                               <upload-files
                                 .defaultValue=${this.hash}
-                                style="flex: 1"
                                 .oneFile=${true}
                                 name="file_hash"
                               ></upload-files>
@@ -88,7 +93,6 @@
                           `
                         : html``
                     }
-                    <input type="submit"></input>
                   </form>
                 </file-storage-context>
               </app-client-context>

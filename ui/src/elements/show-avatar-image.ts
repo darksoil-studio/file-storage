@@ -4,6 +4,7 @@ import { hashProperty, sharedStyles } from "@tnesh-stack/elements";
 import { consume } from "@lit/context";
 
 import "@shoelace-style/shoelace/dist/components/skeleton/skeleton.js";
+import "@shoelace-style/shoelace/dist/components/avatar/avatar.js";
 import "@tnesh-stack/elements/dist/elements/display-error.js";
 
 import { EntryHash } from "@holochain/client";
@@ -62,8 +63,7 @@ export class ShowAvatarImage extends LitElement {
   renderImage(data: string) {
     return html`
       <sl-avatar
-        .src=${data}
-        style="--size: var(--size)"
+        .image=${data}
         part="image"
         .initials=${this.initials.slice(0, 2)}
       ></sl-avatar>
@@ -94,6 +94,10 @@ export class ShowAvatarImage extends LitElement {
         :host {
           display: contents;
           --size: 32px;
+          --size2: var(--size);
+        }
+        sl-avatar {
+          --size: var(--size2);
         }
       `,
     ];
