@@ -63,6 +63,7 @@ export class ShowAvatarImage extends LitElement {
     return html`
       <sl-avatar
         .src=${data}
+        style="--size: var(--size)"
         part="image"
         .initials=${this.initials.slice(0, 2)}
       ></sl-avatar>
