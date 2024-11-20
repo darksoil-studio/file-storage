@@ -16,8 +16,8 @@ import { fileStorageClientContext } from "../context";
 import { getImage, storeImage } from "../local-storage";
 
 @localized()
-@customElement("show-image")
-export class ShowImage extends LitElement {
+@customElement("show-avatar-image")
+export class ShowAvatarImage extends LitElement {
   /** Public attributes */
 
   /**
@@ -30,6 +30,9 @@ export class ShowImage extends LitElement {
    */
   @consume({ context: fileStorageClientContext })
   client!: FileStorageClient;
+
+  @property()
+  initials: string = "";
 
   /**
    * @internal
@@ -57,7 +60,13 @@ export class ShowImage extends LitElement {
   );
 
   renderImage(data: string) {
-    return html`<div style="flex:1"><img src="${data}" part="image" style="object-fit: cover; overflow: hidden; width: 100%; height: 100%"></img></div>`;
+    return html`
+      <sl-avatar
+        .src=${data}
+        part="image"
+        .initials=${this.initials.slice(0, 2)}
+      ></sl-avatar>
+    `;
   }
 
   render() {
@@ -65,12 +74,13 @@ export class ShowImage extends LitElement {
       complete: (d) => this.renderImage(d),
       pending: () =>
         html`<sl-skeleton
-          style="flex: 1; --border-radius: 0"
+          style="flex: 1; --border-radius: 50%; "
           effect="pulse"
         ></sl-skeleton> `,
       error: (e: any) =>
         html`<display-error
-          .headline=${msg("Error fetching the image")}
+          .headline=${msg("Error fetching the avatar")}
+          tooltip
           .error=${e}
         ></display-error>`,
     });
@@ -82,6 +92,8 @@ export class ShowImage extends LitElement {
       css`
         :host {
           display: flex;
+          width: 32px;
+          height: 32px;
         }
       `,
     ];
