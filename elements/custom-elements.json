@@ -560,18 +560,97 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/elements/show-avatar-image.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "ShowAvatarImage",
+          "members": [
+            {
+              "kind": "field",
+              "name": "imageHash",
+              "type": {
+                "text": "EntryHash"
+              },
+              "description": "REQUIRED. The hash of the image to be rendered",
+              "attribute": "imageHash"
+            },
+            {
+              "kind": "field",
+              "name": "initials",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "initials"
+            },
+            {
+              "kind": "method",
+              "name": "renderImage",
+              "parameters": [
+                {
+                  "name": "data",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "name": "imageHash",
+              "type": {
+                "text": "EntryHash"
+              },
+              "description": "REQUIRED. The hash of the image to be rendered",
+              "fieldName": "imageHash"
+            },
+            {
+              "name": "initials",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "initials"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "show-avatar-image",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ShowAvatarImage",
+          "declaration": {
+            "name": "ShowAvatarImage",
+            "module": "src/elements/show-avatar-image.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "show-avatar-image",
+          "declaration": {
+            "name": "ShowAvatarImage",
+            "module": "src/elements/show-avatar-image.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/elements/show-image.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "",
           "name": "ShowImage",
-          "cssParts": [
-            {
-              "description": "Style the dropzone itself",
-              "name": "dropzone"
-            }
-          ],
           "members": [
             {
               "kind": "field",
@@ -593,12 +672,6 @@
                   }
                 }
               ]
-            }
-          ],
-          "events": [
-            {
-              "description": "Fired after having uploaded the file",
-              "name": "file-uploaded"
             }
           ],
           "attributes": [
