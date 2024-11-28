@@ -26,6 +26,9 @@ export class ShowAvatarImage extends LitElement {
    */
   @property(hashProperty("image-hash")) imageHash!: EntryHash;
 
+  @property()
+  shape: "circle" | "square" | "rounded" = "circle";
+
   /**
    * @internal
    */
@@ -66,6 +69,7 @@ export class ShowAvatarImage extends LitElement {
         .image=${data}
         part="image"
         .initials=${this.initials.slice(0, 2)}
+        .shape=${this.shape}
       ></sl-avatar>
     `;
   }

@@ -114,6 +114,9 @@ importers:
       '@custom-elements-manifest/analyzer':
         specifier: ^0.5.7
         version: 0.5.7
+      '@mdi/js':
+        specifier: ^7.4.47
+        version: 7.4.47
       '@open-wc/eslint-config':
         specifier: ^2.0.0
         version: 2.1.0(eslint-plugin-babel@5.3.1(eslint@7.32.0))(eslint-plugin-html@6.2.0)(eslint-plugin-import@2.31.0(@typescript-eslint/parser@5.62.0(eslint@7.32.0)(typescript@5.6.3))(eslint@7.32.0))(eslint-plugin-lit@1.15.0(eslint@7.32.0))(eslint-plugin-no-only-tests@2.6.0)(eslint-plugin-wc@1.5.0(eslint@7.32.0))

@@ -25,6 +25,7 @@
       import "@shoelace-style/shoelace/dist/themes/light.css";
       import { FileStorageClient } from "../src";
       import "../src/elements/upload-files.ts";
+      import "../src/elements/upload-avatar.ts";
       import "../src/elements/file-storage-context.ts";
       import "../src/elements/show-image.ts";
       import "../src/elements/show-avatar-image.ts";
@@ -68,6 +69,14 @@
                         this.hash = e.detail.file.hash;
                       }}
                     ></upload-files>
+                    <upload-avatar
+                      id="uf"
+                      required
+                      name="file_hash"
+                      @avatar-uploaded=${(e) => {
+                        this.hash = e.detail.imageHash;
+                      }}
+                    ></upload-avatar>
                     <input type="submit"></input>
                     </div>
                     ${
