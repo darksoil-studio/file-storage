@@ -10,7 +10,10 @@
     ".": "./dist/index.js",
     "./dist/*": "./dist/*"
   },
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "start": "vite --clearScreen false --port $UI_PORT",
     "build": "npm run lint && tsc",
