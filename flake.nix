@@ -3,10 +3,10 @@
 
   inputs = {
     nixpkgs.follows = "holonix/nixpkgs";
-    holonix.url = "github:holochain/holonix/main-0.3";
-    playground.url = "github:darksoil-studio/holochain-playground/main-0.3";
-    tnesh-stack.url = "github:darksoil-studio/tnesh-stack/main-0.3";
-    p2p-shipyard.url = "github:darksoil-studio/p2p-shipyard/main-0.3";
+    holonix.url = "github:holochain/holonix/main-0.4";
+    playground.url = "github:darksoil-studio/holochain-playground/main-0.4";
+    tnesh-stack.url = "github:darksoil-studio/tnesh-stack/main-0.4";
+    p2p-shipyard.url = "github:darksoil-studio/p2p-shipyard/main-0.4";
   };
 
   nixConfig = {
@@ -43,6 +43,10 @@
           ];
 
           packages = [
+            (inputs'.holonix.packages.holochain.override {
+              cargoExtraArgs =
+                " --features unstable-functions,unstable-dpki,unstable-countersigning";
+            })
             inputs'.tnesh-stack.packages.hc-scaffold-zome
             inputs'.playground.packages.hc-playground
             inputs'.p2p-shipyard.packages.hc-pilot
@@ -59,7 +63,7 @@
                 --integrity-zome-name file_storage_integrity \
                 --coordinator-zome-name file_storage \
                 --remote-zome-git-url github:darksoil-studio/file-storage \
-                --remote-zome-git-branch main-0.3 \
+                --remote-zome-git-branch main-0.4 \
                 --remote-npm-package-name @darksoil-studio/file-storage-zome \
                 --remote-npm-package-path ui \
                 --context-element file-storage-context \

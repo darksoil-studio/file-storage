@@ -26,13 +26,13 @@ const appPath =
 
         const ZOME_NAME = "file_storage_gateway";
         const [_, aliceConsumer] = Array.from(alice.namedCells.entries()).find(
-          ([role_name, cell]) => role_name.includes("consumer"),
+          ([role_name, cell]) => role_name.includes("consumer")
         )!;
         const [__, aliceProvider] = Array.from(alice.namedCells.entries()).find(
-          ([role_name, cell]) => role_name.includes("provider"),
+          ([role_name, cell]) => role_name.includes("provider")
         )!;
         const [___, bobConsumer] = Array.from(bob.namedCells.entries()).find(
-          ([role_name, cell]) => role_name.includes("consumer"),
+          ([role_name, cell]) => role_name.includes("consumer")
         )!;
 
         await aliceConsumer.callZome({
@@ -42,7 +42,7 @@ const appPath =
         });
         await dhtSync(
           [alice, bob],
-          alice.namedCells.get("file_storage_consumer").cell_id[0],
+          alice.namedCells.get("file_storage_consumer").cell_id[0]
         );
 
         // In memory dummy file to upload to DNA
@@ -132,10 +132,10 @@ const appPath =
           { appBundleSource: { path: consumerApp } },
         ]);
         const [____, carolConsumer] = Array.from(
-          carol.namedCells.entries(),
+          carol.namedCells.entries()
         ).find(([role_name, cell]) => role_name.includes("consumer"))!;
         await scenario.shareAllAgents();
-        await pause(3000);
+        await pause(10000);
         /* 
     await bob_player.shutdown();
     await pause(10000);
@@ -161,6 +161,6 @@ const appPath =
         }
       },
       true,
-      { timeout: 30000 },
+      { timeout: 30000 }
     );
   });
