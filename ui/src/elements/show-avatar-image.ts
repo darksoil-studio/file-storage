@@ -36,7 +36,7 @@ export class ShowAvatarImage extends LitElement {
   client!: FileStorageClient;
 
   @property()
-  initials: string = "";
+  initials = "";
 
   /**
    * @internal

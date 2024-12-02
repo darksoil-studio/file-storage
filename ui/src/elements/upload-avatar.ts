@@ -20,10 +20,10 @@ import "./show-avatar-image.js";
 @customElement("upload-avatar")
 export class UploadAvatar extends LitElement implements FormField {
   @property({ attribute: "name" })
-  name: string = "avatar";
+  name = "avatar";
 
   @property()
-  required: boolean = false;
+  required = false;
 
   @property()
   shape: "circle" | "square" | "rounded" = "circle";
@@ -32,7 +32,7 @@ export class UploadAvatar extends LitElement implements FormField {
   value: EntryHash | undefined;
 
   @property()
-  disabled: boolean = false;
+  disabled = false;
 
   @property()
   defaultValue: EntryHash | undefined;
