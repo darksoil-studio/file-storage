@@ -31,7 +31,7 @@ jobs:
 
       - name: Install and test
         run: |
-          nix develop --no-update-lock-file --accept-flake-config --command bash -c "npm i && npm t && npm run -w @darksoil-studio/file-storage-zome build"
+          nix develop --no-update-lock-file --accept-flake-config --command bash -c "pnpm i && pnpm t && pnpm -F @darksoil-studio/file-storage-zome build"
 
       - name: Install jq
         uses: dcarbone/install-jq-action@v2.1.0
