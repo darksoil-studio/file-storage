@@ -571,7 +571,7 @@
               "kind": "field",
               "name": "imageHash",
               "type": {
-                "text": "EntryHash"
+                "text": "EntryHash | undefined"
               },
               "description": "REQUIRED. The hash of the image to be rendered",
               "attribute": "imageHash"
@@ -611,7 +611,7 @@
             {
               "name": "imageHash",
               "type": {
-                "text": "EntryHash"
+                "text": "EntryHash | undefined"
               },
               "description": "REQUIRED. The hash of the image to be rendered",
               "fieldName": "imageHash"
