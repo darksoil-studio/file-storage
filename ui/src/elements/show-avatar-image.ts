@@ -24,7 +24,7 @@ export class ShowAvatarImage extends LitElement {
   /**
    * REQUIRED. The hash of the image to be rendered
    */
-  @property(hashProperty("image-hash")) imageHash!: EntryHash;
+  @property(hashProperty("image-hash")) imageHash: EntryHash | undefined;
 
   @property()
   shape: "circle" | "square" | "rounded" = "circle";
@@ -44,19 +44,19 @@ export class ShowAvatarImage extends LitElement {
   _renderImage = new Task(
     this,
     async ([fileHash]) => {
-      const image = await getImage(fileHash);
+      const image = await getImage(fileHash!);
       if (image) {
         return image;
       }
 
-      const file = await this.client.downloadFile(fileHash);
+      const file = await this.client.downloadFile(fileHash!);
       const data = await file.arrayBuffer();
 
       const imageB64 = `data:${file.type};base64,${fromUint8Array(
         new Uint8Array(data)
       )}`;
 
-      storeImage(fileHash, imageB64);
+      storeImage(fileHash!, imageB64);
 
       return imageB64;
     },
@@ -75,6 +75,16 @@ export class ShowAvatarImage extends LitElement {
   }
 
   render() {
+    if (!this.imageHash) {
+      return html`
+        <sl-avatar
+          part="image"
+          .initials=${this.initials.slice(0, 2)}
+          .shape=${this.shape}
+        ></sl-avatar>
+      `;
+    }
+
     return this._renderImage.render({
       complete: (d) => this.renderImage(d),
       pending: () =>
