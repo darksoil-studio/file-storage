@@ -43,10 +43,7 @@
           ];
 
           packages = [
-            (inputs'.holonix.packages.holochain.override {
-              cargoExtraArgs =
-                " --features unstable-functions,unstable-dpki,unstable-countersigning";
-            })
+            inputs'.tnesh-stack.packages.holochain
             inputs'.tnesh-stack.packages.hc-scaffold-zome
             inputs'.playground.packages.hc-playground
             inputs'.p2p-shipyard.packages.hc-pilot
