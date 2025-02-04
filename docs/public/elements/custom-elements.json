@@ -481,6 +481,30 @@
                 "text": "FileStorageClient"
               },
               "attribute": "client"
+            },
+            {
+              "kind": "field",
+              "name": "appClient",
+              "type": {
+                "text": "AppClient"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "role",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "role"
+            },
+            {
+              "kind": "field",
+              "name": "zome",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"file_storage\"",
+              "attribute": "zome"
             }
           ],
           "attributes": [
@@ -490,6 +514,21 @@
                 "text": "FileStorageClient"
               },
               "fieldName": "client"
+            },
+            {
+              "name": "role",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "role"
+            },
+            {
+              "name": "zome",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"file_storage\"",
+              "fieldName": "zome"
             }
           ],
           "superclass": {
@@ -521,18 +560,114 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/elements/show-avatar-image.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "ShowAvatarImage",
+          "members": [
+            {
+              "kind": "field",
+              "name": "imageHash",
+              "type": {
+                "text": "EntryHash | undefined"
+              },
+              "description": "REQUIRED. The hash of the image to be rendered",
+              "attribute": "imageHash"
+            },
+            {
+              "kind": "field",
+              "name": "shape",
+              "type": {
+                "text": "\"circle\" | \"square\" | \"rounded\""
+              },
+              "default": "\"circle\"",
+              "attribute": "shape"
+            },
+            {
+              "kind": "field",
+              "name": "initials",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "initials"
+            },
+            {
+              "kind": "method",
+              "name": "renderImage",
+              "parameters": [
+                {
+                  "name": "data",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "name": "imageHash",
+              "type": {
+                "text": "EntryHash | undefined"
+              },
+              "description": "REQUIRED. The hash of the image to be rendered",
+              "fieldName": "imageHash"
+            },
+            {
+              "name": "shape",
+              "type": {
+                "text": "\"circle\" | \"square\" | \"rounded\""
+              },
+              "default": "\"circle\"",
+              "fieldName": "shape"
+            },
+            {
+              "name": "initials",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "initials"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "show-avatar-image",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ShowAvatarImage",
+          "declaration": {
+            "name": "ShowAvatarImage",
+            "module": "src/elements/show-avatar-image.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "show-avatar-image",
+          "declaration": {
+            "name": "ShowAvatarImage",
+            "module": "src/elements/show-avatar-image.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/elements/show-image.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "",
           "name": "ShowImage",
-          "cssParts": [
-            {
-              "description": "Style the dropzone itself",
-              "name": "dropzone"
-            }
-          ],
           "members": [
             {
               "kind": "field",
@@ -554,12 +689,6 @@
                   }
                 }
               ]
-            }
-          ],
-          "events": [
-            {
-              "description": "Fired after having uploaded the file",
-              "name": "file-uploaded"
             }
           ],
           "attributes": [
@@ -595,6 +724,211 @@
           "declaration": {
             "name": "ShowImage",
             "module": "src/elements/show-image.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/elements/upload-avatar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "UploadAvatar",
+          "members": [
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"avatar\"",
+              "attribute": "name"
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "required"
+            },
+            {
+              "kind": "field",
+              "name": "shape",
+              "type": {
+                "text": "\"circle\" | \"square\" | \"rounded\""
+              },
+              "default": "\"circle\"",
+              "attribute": "shape"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "EntryHash | undefined"
+              },
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled"
+            },
+            {
+              "kind": "field",
+              "name": "defaultValue",
+              "type": {
+                "text": "EntryHash | undefined"
+              },
+              "attribute": "defaultValue"
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "_client",
+              "type": {
+                "text": "FileStorageClient"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_avatarFilePicker",
+              "type": {
+                "text": "HTMLInputElement"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_errorInput",
+              "type": {
+                "text": "HTMLInputElement"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_controller",
+              "default": "new FormFieldController(this)"
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity"
+            },
+            {
+              "kind": "method",
+              "name": "reset"
+            },
+            {
+              "kind": "method",
+              "name": "onAvatarUploaded"
+            },
+            {
+              "kind": "method",
+              "name": "renderAvatar"
+            }
+          ],
+          "events": [
+            {
+              "name": "avatar-uploaded",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"avatar\"",
+              "fieldName": "name"
+            },
+            {
+              "name": "required",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "required"
+            },
+            {
+              "name": "shape",
+              "type": {
+                "text": "\"circle\" | \"square\" | \"rounded\""
+              },
+              "default": "\"circle\"",
+              "fieldName": "shape"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "EntryHash | undefined"
+              },
+              "fieldName": "value"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "defaultValue",
+              "type": {
+                "text": "EntryHash | undefined"
+              },
+              "fieldName": "defaultValue"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "label"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "upload-avatar",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "UploadAvatar",
+          "declaration": {
+            "name": "UploadAvatar",
+            "module": "src/elements/upload-avatar.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "upload-avatar",
+          "declaration": {
+            "name": "UploadAvatar",
+            "module": "src/elements/upload-avatar.ts"
           }
         }
       ]
