@@ -35,9 +35,9 @@ const appPath =
           ([role_name, cell]) => role_name.includes("consumer")
         )!;
 
-        await aliceConsumer.callZome({
-          zome_name: "file_storage_gateway",
-          fn_name: "announce_as_provider",
+        await aliceProvider.callZome({
+          zome_name: "file_storage",
+          fn_name: "init",
           payload: null,
         });
         await dhtSync(

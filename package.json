@@ -1,10 +1,6 @@
 {
   "name": "@darksoil-studio/file-storage-dev",
   "private": true,
-  "workspaces": [
-    "ui",
-    "tests"
-  ],
   "scripts": {
     "start": "AGENTS=2 pnpm network",
     "network": "pnpm build:happs && UI_PORT=8888 concurrently -k \"pnpm -F @darksoil-studio/file-storage-zome start\" \"pnpm launch\" \"hc playground\"",
