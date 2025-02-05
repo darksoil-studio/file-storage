@@ -1,6 +1,33 @@
 use file_storage_integrity::*;
 use hdk::prelude::*;
 
+fn file_storage_gateway_role() -> Option<RoleName> {
+    let Some(role_name) = option_env!("FILE_STORAGE_GATEWAY_ROLE") else {
+        return None;
+    };
+    Some(RoleName::from(role_name))
+}
+
+#[hdk_extern]
+pub fn init() -> ExternResult<InitCallbackResult> {
+    if let Some(gateway_role) = file_storage_gateway_role() {
+        let response = call(
+            CallTargetCell::OtherRole(gateway_role),
+            ZomeName::from("file_storage_gateway"),
+            "announce_as_provider".into(),
+            None,
+            (),
+        )?;
+        let ZomeCallResponse::Ok(_) = response else {
+            return Ok(InitCallbackResult::Fail(format!(
+                "Failed to announce as provider: {response:?}"
+            )));
+        };
+    }
+
+    Ok(InitCallbackResult::Pass)
+}
+
 pub fn create_relaxed<I, E, E2>(input: I) -> ExternResult<ActionHash>
 where
     ScopedEntryDefIndex: for<'a> TryFrom<&'a I, Error = E2>,

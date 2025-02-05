@@ -32,6 +32,7 @@
         ./dnas/file_storage_consumer/zomes/coordinator/file_storage_gateway/zome.nix
         ./dnas/file_storage_consumer/workdir/dna.nix
         ./dnas/file_storage_consumer/workdir/happ.nix
+        inputs.tnesh-stack.outputs.flakeModules.builders
       ];
 
       systems = builtins.attrNames inputs.holonix.devShells;
