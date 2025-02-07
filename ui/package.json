@@ -1,6 +1,6 @@
 {
   "name": "@darksoil-studio/file-storage-zome",
-  "version": "0.400.0",
+  "version": "0.401.0",
   "description": "File storage utilities to store and retrieve files in a holochain DHT",
   "author": "guillem.cordoba@gmail.com",
   "license": "MIT",
@@ -14,7 +14,10 @@
     "type": "git",
     "url": "git+https://github.com/darksoil-studio/file-storage.git"
   },
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "start": "vite --clearScreen false --port $UI_PORT",
     "build": "pnpm lint && tsc",
