@@ -10,6 +10,10 @@
     ".": "./dist/index.js",
     "./dist/*": "./dist/*"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darksoil-studio/file-storage.git"
+  },
   "files": ["dist", "src"],
   "scripts": {
     "start": "vite --clearScreen false --port $UI_PORT",
