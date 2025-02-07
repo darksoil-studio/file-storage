@@ -11,7 +11,7 @@ export class FileStorageClient {
   constructor(
     public client: AppClient,
     public roleName: string,
-    public zomeName: string = "file_storage"
+    public zomeName: string = "file_storage",
   ) {}
 
   /**
@@ -25,7 +25,7 @@ export class FileStorageClient {
     onProgress:
       | undefined
       | ((percentatgeProgress: number, bytesSent: number) => void) = undefined,
-    chunkSize: number = 256 * 1024
+    chunkSize: number = 256 * 1024,
   ): Promise<EntryHash> {
     const blobs = this._splitFile(file, chunkSize);
     const numberOfChunks = blobs.length;
@@ -38,7 +38,7 @@ export class FileStorageClient {
         uploadedChunks++;
         onProgress(
           ((uploadedChunks + 1) * 1.0) / numberOfChunks,
-          bytesPerChunk * (uploadedChunks + 1)
+          bytesPerChunk * (uploadedChunks + 1),
         );
       }
     };
@@ -49,7 +49,7 @@ export class FileStorageClient {
 
         onChunkUploaded();
         return chunkHash;
-      })
+      }),
     );
 
     const fileToCreate = {
@@ -72,7 +72,7 @@ export class FileStorageClient {
     const metadata = await this.getFileMetadata(fileHash);
 
     const fetchChunksPromises = metadata.chunks_hashes.map((hash) =>
-      this.fetchChunk(hash)
+      this.fetchChunk(hash),
     );
 
     const chunks = await Promise.all(fetchChunksPromises);
@@ -126,7 +126,7 @@ export class FileStorageClient {
     return this._callZome("create_file_chunk", new Uint8Array(bytes));
   }
 
-  private _callZome(fn_name: string, payload: any) {
+  private _callZome(fn_name: string, payload: unknown) {
     const req: AppCallZomeRequest = {
       role_name: this.roleName,
       zome_name: this.zomeName,

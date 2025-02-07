@@ -1,4 +1,4 @@
-import { encodeHashToBase64, EntryHash } from "@holochain/client";
+import { EntryHash } from "@holochain/client";
 import { createStore, del, entries, get, set } from "idb-keyval";
 
 const store = createStore("HC_ZOME_FILE_STORAGE", "IMAGES");
@@ -15,13 +15,13 @@ export async function storeImage(imageHash: EntryHash, image: string) {
       image,
       lastRead: Date.now(),
     },
-    store
+    store,
   );
   clearOldItems();
 }
 
 export async function getImage(
-  imageHash: EntryHash
+  imageHash: EntryHash,
 ): Promise<string | undefined> {
   const image: CachedImage | undefined = await get(imageHash, store);
 

@@ -1,12 +1,13 @@
 import { Dropzone, DropzoneOptions } from "@scoped-elements/dropzone";
 import { FileStorageClient } from "./file-storage-client";
+import { EntryHash } from "@holochain/client";
 
 export class HolochainDropzone extends Dropzone {
   fileStorageClient: FileStorageClient;
   constructor(
     el: HTMLElement,
     fileStorageClient: FileStorageClient,
-    options: DropzoneOptions
+    options: DropzoneOptions,
   ) {
     options.url = "https://holochain.org/"; // just to bypass the check.
     super(el, options);
@@ -18,7 +19,7 @@ export class HolochainDropzone extends Dropzone {
   }
 
   async _uploadFilesToHolochain(
-    dropzoneFiles: Dropzone.DropzoneFile[]
+    dropzoneFiles: Dropzone.DropzoneFile[],
   ): Promise<void> {
     for (const file of dropzoneFiles) {
       try {
@@ -27,14 +28,14 @@ export class HolochainDropzone extends Dropzone {
           file,
           (percentatge, bytesSent) => {
             this.emit("uploadprogress", file, percentatge * 100, bytesSent);
-          }
+          },
         );
         this.emit("success", file, undefined);
-        (file as any).hash = hash;
+        (file as unknown as { hash: EntryHash }).hash = hash;
         this.emit("complete", file);
       } catch (e) {
         console.error(e);
-        this.emit("error", file, e as any);
+        this.emit("error", file, e as unknown as { hash: EntryHash });
       }
     }
   }

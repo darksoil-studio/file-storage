@@ -85,11 +85,11 @@ export class UploadFiles extends DropzoneElement implements FormField {
       if (Array.isArray(this.defaultValue)) {
         for (const fileHash of this.defaultValue) {
           const image = await this._client.downloadFile(fileHash);
-          this.dropzone.addFile(image as any);
+          this.dropzone.addFile(image as Dropzone.DropzoneFile);
         }
       } else {
         const image = await this._client.downloadFile(this.defaultValue);
-        this.dropzone.addFile(image as any);
+        this.dropzone.addFile(image as Dropzone.DropzoneFile);
       }
     }
   }
@@ -100,9 +100,11 @@ export class UploadFiles extends DropzoneElement implements FormField {
   get value() {
     if (this.oneFile)
       return this.dropzone.files[0]
-        ? (this.dropzone.files[0] as any).hash
+        ? (this.dropzone.files[0] as unknown as { hash: EntryHash }).hash
         : undefined;
-    return this.dropzone.files.map((file) => (file as any).hash);
+    return this.dropzone.files.map(
+      (file) => (file as unknown as { hash: EntryHash }).hash,
+    );
   }
 
   /**
@@ -126,7 +128,7 @@ export class UploadFiles extends DropzoneElement implements FormField {
       dropzoneElement,
       this._client,
       options,
-    ) as any as Dropzone;
+    ) as unknown as Dropzone;
   }
 
   render() {

@@ -11,8 +11,8 @@ import {
   sharedStyles,
   wrapPathInSvg,
 } from "@tnesh-stack/elements";
-import { LitElement, css, html } from "lit";
-import { customElement, property, query, state } from "lit/decorators.js";
+import { LitElement, html } from "lit";
+import { customElement, property, query } from "lit/decorators.js";
 import { fileStorageClientContext } from "../context";
 import { FileStorageClient } from "../file-storage-client";
 import "./show-avatar-image.js";
@@ -68,7 +68,7 @@ export class UploadAvatar extends LitElement implements FormField {
   async onAvatarUploaded() {
     if (this._avatarFilePicker.files && this._avatarFilePicker.files[0]) {
       this.value = await this._client.uploadFile(
-        this._avatarFilePicker.files[0]
+        this._avatarFilePicker.files[0],
       );
       this.dispatchEvent(
         new CustomEvent("avatar-uploaded", {
@@ -77,7 +77,7 @@ export class UploadAvatar extends LitElement implements FormField {
           detail: {
             imageHash: this.value,
           },
-        })
+        }),
       );
       this._avatarFilePicker.value = "";
     }

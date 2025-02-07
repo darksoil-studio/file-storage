@@ -53,14 +53,14 @@ export class ShowAvatarImage extends LitElement {
       const data = await file.arrayBuffer();
 
       const imageB64 = `data:${file.type};base64,${fromUint8Array(
-        new Uint8Array(data)
+        new Uint8Array(data),
       )}`;
 
       storeImage(fileHash!, imageB64);
 
       return imageB64;
     },
-    () => [this.imageHash]
+    () => [this.imageHash],
   );
 
   renderImage(data: string) {
@@ -92,7 +92,7 @@ export class ShowAvatarImage extends LitElement {
           style="width: var(--size); height: var(--size); --border-radius: 50%; "
           effect="pulse"
         ></sl-skeleton> `,
-      error: (e: any) =>
+      error: (e: unknown) =>
         html`<display-error
           .headline=${msg("Error fetching the avatar")}
           tooltip
