@@ -48,6 +48,12 @@
             inputs'.tnesh-stack.packages.hc-scaffold-zome
             inputs'.playground.packages.hc-playground
             inputs'.p2p-shipyard.packages.hc-pilot
+            (pkgs.writeShellScriptBin "npm-git-version" ''
+              commit=$(${pkgs.git}/bin/git rev-parse HEAD)
+              version=$(cat $1 | ${pkgs.jq}/bin/jq '.version' -r)
+              new_version=$version-rev.$commit
+              ${pkgs.nodejs_20}/bin/npm version $new_version
+            '')
           ];
         };
 
