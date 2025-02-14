@@ -1,9 +1,9 @@
 name: "Build and cache zomes"
 on:
   push: 
-    branches: [ main, main-0.4 ]
+    branches: [ main, 'main-**' ]
   pull_request: 
-    branches: [ main, main-0.4 ]
+    branches: [ main, 'main-**' ]
 
 jobs:
   build-and-cache-zomes:
@@ -19,7 +19,7 @@ jobs:
         uses: cachix/install-nix-action@v27
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-          nix_path: nixpkgs=channel:nixos-24.05
+          nix_path: nixpkgs=channel:nixos-24.11
 
       - uses: cachix/cachix-action@v15
         with:
@@ -28,10 +28,6 @@ jobs:
       - uses: cachix/cachix-action@v15
         with:
           name: darksoil-studio
-
-      - name: Install and test
-        run: |
-          nix develop --no-update-lock-file --accept-flake-config --command bash -c "pnpm i && pnpm t && pnpm -F @darksoil-studio/file-storage-zome build"
 
       - name: Install jq
         uses: dcarbone/install-jq-action@v2.1.0
@@ -46,6 +42,12 @@ jobs:
           cachix watch-exec darksoil-studio -- nix build --no-update-lock-file --accept-flake-config -L .#file_storage.meta.debug
           cachix push darksoil-studio $(nix path-info --json --accept-flake-config --no-warn-dirty .#file_storage.meta.debug | jq -r 'keys[0]')
     
+          cachix watch-exec darksoil-studio -- nix build --no-update-lock-file --accept-flake-config -L .#file_storage_gateway_integrity.meta.debug
+          cachix push darksoil-studio $(nix path-info --json --accept-flake-config --no-warn-dirty .#file_storage_gateway_integrity.meta.debug | jq -r 'keys[0]')
+
+          cachix watch-exec darksoil-studio -- nix build --no-update-lock-file --accept-flake-config -L .#file_storage_gateway.meta.debug
+          cachix push darksoil-studio $(nix path-info --json --accept-flake-config --no-warn-dirty .#file_storage_gateway.meta.debug | jq -r 'keys[0]')
+    
       - name: Pin debug zomes
         if: github.event_name != 'pull_request' && github.ref_name == 'main'
         env:
@@ -54,6 +56,10 @@ jobs:
           cachix pin darksoil-studio file_storage_integrity_debug $(nix path-info --json --accept-flake-config --no-warn-dirty .#file_storage_integrity.meta.debug | jq -r 'keys[0]')
 
           cachix pin darksoil-studio file_storage_debug $(nix path-info --json --accept-flake-config --no-warn-dirty .#file_storage.meta.debug | jq -r 'keys[0]')
+
+          cachix pin darksoil-studio file_storage_gateway_integrity_debug $(nix path-info --json --accept-flake-config --no-warn-dirty .#file_storage_gateway_integrity.meta.debug | jq -r 'keys[0]')
+
+          cachix pin darksoil-studio file_storage_gateway_debug $(nix path-info --json --accept-flake-config --no-warn-dirty .#file_storage_gateway.meta.debug | jq -r 'keys[0]')
 
       - name: Build release zomes
         if: matrix.os == 'ubuntu-latest'
@@ -66,6 +72,12 @@ jobs:
           cachix watch-exec darksoil-studio -- nix build --no-update-lock-file --accept-flake-config -L .#file_storage
           cachix push darksoil-studio $(nix path-info --json --accept-flake-config --no-warn-dirty .#file_storage | jq -r 'keys[0]')
 
+          cachix watch-exec darksoil-studio -- nix build --no-update-lock-file --accept-flake-config -L .#file_storage_gateway_integrity
+          cachix push darksoil-studio $(nix path-info --json --accept-flake-config --no-warn-dirty .#file_storage_gateway_integrity | jq -r 'keys[0]')
+
+          cachix watch-exec darksoil-studio -- nix build --no-update-lock-file --accept-flake-config -L .#file_storage_gateway
+          cachix push darksoil-studio $(nix path-info --json --accept-flake-config --no-warn-dirty .#file_storage_gateway | jq -r 'keys[0]')
+
       - name: Pin release zomes
         if: matrix.os == 'ubuntu-latest' && github.event_name != 'pull_request' && github.ref_name == 'main'
         env:
@@ -74,3 +86,7 @@ jobs:
           cachix pin darksoil-studio file_storage_integrity $(nix path-info --json --accept-flake-config --no-warn-dirty .#file_storage_integrity | jq -r 'keys[0]')
 
           cachix pin darksoil-studio file_storage $(nix path-info --json --accept-flake-config --no-warn-dirty .#file_storage | jq -r 'keys[0]')
+
+          cachix pin darksoil-studio file_storage_gateway_integrity $(nix path-info --json --accept-flake-config --no-warn-dirty .#file_storage_gateway_integrity | jq -r 'keys[0]')
+
+          cachix pin darksoil-studio file_storage_gateway $(nix path-info --json --accept-flake-config --no-warn-dirty .#file_storage_gateway | jq -r 'keys[0]')
