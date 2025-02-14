@@ -13,17 +13,14 @@
     "type": "git",
     "url": "git+https://github.com/darksoil-studio/file-storage.git"
   },
-  "files": [
-    "dist",
-    "src"
-  ],
+  "files": ["dist", "src"],
   "scripts": {
     "start": "vite --clearScreen false --port $UI_PORT",
-    "build": "pnpm lint && tsc",
+    "build": "pnpm lint && tsc && pnpm localize:build && pnpm analyze",
+    "localize:build": "lit-localize build",
     "lint": "eslint src",
     "analyze": "cem analyze --litelement --exclude dist",
-    "format": "eslint src --fix",
-    "prepublish": "pnpm build"
+    "format": "eslint src --fix"
   },
   "dependencies": {
     "@holochain/client": "^0.18.0",
@@ -41,6 +38,7 @@
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.10.3",
+    "@lit/localize-tools": "^0.6.3",
     "@types/lodash-es": "^4.17.5",
     "@types/node": "14.11.1",
     "tslib": "^2.0.0",
