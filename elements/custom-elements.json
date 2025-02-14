@@ -177,7 +177,7 @@
                 {
                   "name": "payload",
                   "type": {
-                    "text": "any"
+                    "text": "unknown"
                   }
                 }
               ]
@@ -1090,9 +1090,6 @@
               },
               "default": "undefined",
               "description": "The type of files accepted by this element\nLearn how to use this here: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept",
-              "resolveInitializer": {
-                "module": "src/elements/upload-files.ts"
-              },
               "fieldName": "acceptedFiles"
             }
           ],
