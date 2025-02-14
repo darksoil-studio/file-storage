@@ -48,12 +48,6 @@
             inputs'.tnesh-stack.packages.hc-scaffold-zome
             inputs'.playground.packages.hc-playground
             inputs'.p2p-shipyard.packages.hc-pilot
-            (pkgs.writeShellScriptBin "npm-git-version" ''
-              commit=$(${pkgs.git}/bin/git rev-parse HEAD)
-              version=$(cat $1 | ${pkgs.jq}/bin/jq '.version' -r)
-              new_version=$version-rev.$commit
-              ${pkgs.nodejs_20}/bin/npm version $new_version
-            '')
           ];
         };
 
@@ -69,7 +63,6 @@
                 --remote-zome-git-url github:darksoil-studio/file-storage \
                 --remote-zome-git-branch main-0.4 \
                 --remote-npm-package-name @darksoil-studio/file-storage-zome \
-                --remote-npm-package-path ui \
                 --context-element file-storage-context \
                 --context-element-import @darksoil-studio/file-storage-zome/dist/elements/file-storage-context.js"
           '';
