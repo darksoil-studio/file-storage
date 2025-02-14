@@ -50,6 +50,7 @@
             inputs'.p2p-shipyard.packages.hc-pilot
           ];
         };
+        devShells.npm-ci = inputs'.tnesh-stack.devShells.synchronized-pnpm;
 
         packages.scaffold = pkgs.symlinkJoin {
           name = "scaffold-remote-zome";
