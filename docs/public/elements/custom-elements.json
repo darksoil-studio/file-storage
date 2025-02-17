@@ -51,7 +51,7 @@
                   "name": "onProgress",
                   "default": "undefined",
                   "type": {
-                    "text": "| undefined\n      | ((percentatgeProgress: number, bytesSent: number) => void)"
+                    "text": "| undefined\n      | ((percentageProgress: number, bytesSent: number) => void)"
                   }
                 },
                 {
