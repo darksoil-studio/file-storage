@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: main-0.4
 
       - name: Install nix
         uses: cachix/install-nix-action@v27
@@ -46,13 +48,13 @@ jobs:
         if: steps.changes.outputs.src == 'true'
         uses: peter-evans/create-pull-request@v3
         with:
-          token: ${{ secrets.GITHUB_SECRET }}
+          token: ${{ secrets.PULL_REQUESTS_ENABLE_CHECKS_TOKEN }}
 
       - name: Enable Pull Request Automerge
         if: steps.changes.outputs.src == 'true' && steps.cpr.outputs.pull-request-operation == 'created'
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
-          token: ${{ secrets.GITHUB_SECRET }}
+          token: ${{ secrets.PULL_REQUESTS_ENABLE_CHECKS_TOKEN }}
           pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
           merge-method: squash
 
