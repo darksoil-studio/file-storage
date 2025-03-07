@@ -10,15 +10,3 @@ pub enum FileStorageRequest {
     CreateFileMetadata(FileMetadata),
     GetFileMetadata(EntryHash),
 }
-
-impl FileStorageRequest {
-    pub fn request_type(&self) -> String {
-        match self {
-            FileStorageRequest::CreateFileChunk(_) => "CreateFileChuck",
-            FileStorageRequest::GetFileChunk(_) => "GetFileChuck",
-            FileStorageRequest::CreateFileMetadata(_) => "CreateFileMetadata",
-            FileStorageRequest::GetFileMetadata(_) => "GetFileMetadata",
-        }
-        .to_string()
-    }
-}
