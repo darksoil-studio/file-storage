@@ -146,7 +146,10 @@ pub fn get_all_providers() -> ExternResult<Vec<AgentPubKey>> {
 #[hdk_extern]
 pub fn handle_file_storage_request(request: FileStorageRequest) -> ExternResult<ExternIO> {
     let now = sys_time()?;
-    info!("Received file storage request with id {now}: {request:?}");
+    info!(
+        "Received file storage request with id {now}: {}.",
+        request.request_type()
+    );
     let response = match request {
         FileStorageRequest::CreateFileChunk(file_chunk) => {
             bridged_call("create_file_chunk".into(), file_chunk)
