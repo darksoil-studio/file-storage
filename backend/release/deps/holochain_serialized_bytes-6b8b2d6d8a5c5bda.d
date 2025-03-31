@@ -1,0 +1,6 @@
+/home/runner/work/file-storage/file-storage/docs/public/backend/release/deps/libholochain_serialized_bytes-6b8b2d6d8a5c5bda.rmeta: /home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/holochain_serialized_bytes-0.0.55/src/lib.rs /home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/holochain_serialized_bytes-0.0.55/src/prelude.rs
+
+/home/runner/work/file-storage/file-storage/docs/public/backend/release/deps/holochain_serialized_bytes-6b8b2d6d8a5c5bda.d: /home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/holochain_serialized_bytes-0.0.55/src/lib.rs /home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/holochain_serialized_bytes-0.0.55/src/prelude.rs
+
+/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/holochain_serialized_bytes-0.0.55/src/lib.rs:
+/home/runner/.cargo/registry/src/index.crates.io-6f17d22bba15001f/holochain_serialized_bytes-0.0.55/src/prelude.rs:
