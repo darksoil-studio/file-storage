@@ -2,7 +2,7 @@ import { css, html, LitElement } from "lit";
 import { consume, provide } from "@lit/context";
 import { property, customElement } from "lit/decorators.js";
 import { AppClient } from "@holochain/client";
-import { appClientContext } from "@tnesh-stack/elements";
+import { appClientContext } from "@darksoil-studio/holochain-elements";
 
 import { fileStorageClientContext } from "../context.js";
 import { FileStorageClient } from "../file-storage-client.js";

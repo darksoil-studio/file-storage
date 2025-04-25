@@ -3,7 +3,7 @@
 {
   perSystem = { inputs', self', lib, system, ... }: {
     packages.file_storage_consumer_test_dna =
-      inputs.tnesh-stack.outputs.builders.${system}.dna {
+      inputs.holochain-nix-builders.outputs.builders.${system}.dna {
         dnaManifest = ./dna.yaml;
         zomes = {
           file_storage_gateway_integrity =

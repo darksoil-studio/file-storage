@@ -1,4 +1,4 @@
-import { EntryHashMap, ZomeMock, hash, HashType } from "@tnesh-stack/utils";
+import { EntryHashMap, ZomeMock, hash, HashType } from "@darksoil-studio/holochain-utils";
 import { HoloHash } from "@holochain/client";
 import { FileMetadata } from "./types";
 

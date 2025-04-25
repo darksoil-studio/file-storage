@@ -7,7 +7,7 @@ import {
   FormField,
   FormFieldController,
   sharedStyles,
-} from "@tnesh-stack/elements";
+} from "@darksoil-studio/holochain-elements";
 import { localized } from "@lit/localize";
 
 import { FileStorageClient } from "../file-storage-client.js";

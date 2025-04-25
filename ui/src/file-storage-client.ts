@@ -1,4 +1,4 @@
-import type { AppCallZomeRequest, AppClient } from "@holochain/client";
+import type { AppClient, RoleNameCallZomeRequest } from "@holochain/client";
 import { EntryHash } from "@holochain/client";
 import { FileMetadata } from "./types";
 
@@ -127,7 +127,7 @@ export class FileStorageClient {
   }
 
   private _callZome(fn_name: string, payload: unknown) {
-    const req: AppCallZomeRequest = {
+    const req: RoleNameCallZomeRequest = {
       role_name: this.roleName,
       zome_name: this.zomeName,
       fn_name,
