@@ -1,3 +1,9 @@
-(function() {var implementors = {
-"file_storage_gateway_integrity":[["impl LinkTypesHelper for <a class=\"enum\" href=\"file_storage_gateway_integrity/enum.LinkTypes.html\" title=\"enum file_storage_gateway_integrity::LinkTypes\">LinkTypes</a>"]]
-};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
+(function() {
+    var implementors = Object.fromEntries([["file_storage_gateway_integrity",[["impl LinkTypesHelper for <a class=\"enum\" href=\"file_storage_gateway_integrity/enum.LinkTypes.html\" title=\"enum file_storage_gateway_integrity::LinkTypes\">LinkTypes</a>"]]]]);
+    if (window.register_implementors) {
+        window.register_implementors(implementors);
+    } else {
+        window.pending_implementors = implementors;
+    }
+})()
+//{"start":57,"fragment_lengths":[214]}
