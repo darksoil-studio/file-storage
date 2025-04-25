@@ -1,11 +1,11 @@
 import { css, html, LitElement } from "lit";
 import { property, customElement } from "lit/decorators.js";
-import { hashProperty, sharedStyles } from "@tnesh-stack/elements";
+import { hashProperty, sharedStyles } from "@darksoil-studio/holochain-elements";
 import { consume } from "@lit/context";
 
 import "@shoelace-style/shoelace/dist/components/skeleton/skeleton.js";
 import "@shoelace-style/shoelace/dist/components/avatar/avatar.js";
-import "@tnesh-stack/elements/dist/elements/display-error.js";
+import "@darksoil-studio/holochain-elements/dist/elements/display-error.js";
 
 import { EntryHash } from "@holochain/client";
 import { Task } from "@lit-labs/task";

@@ -10,7 +10,7 @@ import {
   FormFieldController,
   sharedStyles,
   wrapPathInSvg,
-} from "@tnesh-stack/elements";
+} from "@darksoil-studio/holochain-elements";
 import { LitElement, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 import { fileStorageClientContext } from "../context";

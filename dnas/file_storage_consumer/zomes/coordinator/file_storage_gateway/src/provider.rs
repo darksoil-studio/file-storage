@@ -27,7 +27,7 @@ pub fn remove_inactive_providers() -> ExternResult<()> {
         .build(),
     )?;
 
-    let my_pub_key = agent_info()?.agent_latest_pubkey;
+    let my_pub_key = agent_info()?.agent_initial_pubkey;
 
     for provider_link in providers_links.clone() {
         let Some(provider) = provider_link.target.into_agent_pub_key() else {
@@ -97,7 +97,7 @@ pub fn announce_as_provider(_: ()) -> ExternResult<()> {
     let path = providers_path();
     create_link(
         path.path_entry_hash()?,
-        agent_info.agent_latest_pubkey,
+        agent_info.agent_initial_pubkey,
         LinkTypes::GatewayProviderAgent,
         (),
     )?;

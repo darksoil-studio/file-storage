@@ -1,6 +1,6 @@
 {
   "name": "@darksoil-studio/file-storage-zome",
-  "version": "0.400.0",
+  "version": "0.500.0",
   "description": "File storage utilities to store and retrieve files in a holochain DHT",
   "author": "guillem.cordoba@gmail.com",
   "main": "dist/index.js",
@@ -23,15 +23,15 @@
     "format": "eslint src --fix"
   },
   "dependencies": {
-    "@holochain/client": "^0.18.0",
+    "@holochain/client": "^0.19.0",
     "@lit-labs/task": "^2.0.0",
     "@lit/context": "^1.0.0",
     "@lit/localize": "^0.12.0",
     "@mdi/js": "^7.4.47",
     "@scoped-elements/dropzone": "^0.2.1",
     "@shoelace-style/shoelace": "^2.11.0",
-    "@tnesh-stack/elements": "^0.400.0",
-    "@tnesh-stack/utils": "^0.400.0",
+    "@darksoil-studio/holochain-elements": "^0.500.0",
+    "@darksoil-studio/holochain-utils": "^0.500.0",
     "idb-keyval": "^6.2.1",
     "js-base64": "^3.7.7",
     "lit": "^3.0.0"
