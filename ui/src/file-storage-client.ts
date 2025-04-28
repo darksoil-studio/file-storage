@@ -24,7 +24,7 @@ export class FileStorageClient {
     file: File,
     onProgress:
       | undefined
-      | ((percentatgeProgress: number, bytesSent: number) => void) = undefined,
+      | ((percentageProgress: number, bytesSent: number) => void) = undefined,
     chunkSize: number = 256 * 1024,
   ): Promise<EntryHash> {
     const blobs = this._splitFile(file, chunkSize);
