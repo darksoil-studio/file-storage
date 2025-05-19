@@ -28,6 +28,7 @@
       import "../src/elements/upload-avatar.ts";
       import "../src/elements/file-storage-context.ts";
       import "../src/elements/show-image.ts";
+      import "../src/elements/video-player.ts";
       import "../src/elements/show-avatar-image.ts";
       import { css, html, LitElement } from "lit";
       import { ContextProvider } from "@lit/context";
@@ -93,6 +94,11 @@
                                 style="width: 500px; height: 500px; border-radius: 12px"
                               ></show-image>
 
+                              <video-player
+                                .videoHash=${this.hash}
+                                style="width: 500px; height: 500px; border-radius: 12px"
+                              ></video-player>
+
                               <upload-files
                                 .defaultValue=${this.hash}
                                 .oneFile=${true}
@@ -107,7 +113,7 @@
               </app-client-context>
             `;
           }
-        }
+        },
       );
     </script>
   </body>
