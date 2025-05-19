@@ -11,7 +11,6 @@ import "@darksoil-studio/holochain-elements/dist/elements/display-error.js";
 
 import { EntryHash } from "@holochain/client";
 import { Task } from "@lit-labs/task";
-import { fromUint8Array } from "js-base64";
 import { localized, msg } from "@lit/localize";
 
 import { FileStorageClient } from "../file-storage-client";
@@ -19,14 +18,14 @@ import { fileStorageClientContext } from "../context";
 import { getFile, storeFile } from "../local-storage";
 
 @localized()
-@customElement("show-image")
-export class ShowImage extends LitElement {
+@customElement("video-player")
+export class VideoPlayer extends LitElement {
   /** Public attributes */
 
   /**
-   * REQUIRED. The hash of the image to be rendered
+   * REQUIRED. The hash of the video to be rendered
    */
-  @property(hashProperty("image-hash")) imageHash!: EntryHash;
+  @property(hashProperty("video-hash")) videoHash!: EntryHash;
 
   /**
    * @internal
@@ -37,39 +36,36 @@ export class ShowImage extends LitElement {
   /**
    * @internal
    */
-  _renderImage = new Task(
+  _renderVideo = new Task(
     this,
     async ([fileHash]) => {
-      const image = await getFile(fileHash);
-      if (image) {
-        const data = await image.arrayBuffer();
-
-        const imageB64 = `data:${image.type};base64,${fromUint8Array(
-          new Uint8Array(data),
-        )}`;
-        return imageB64;
+      const video = await getFile(fileHash);
+      if (video) {
+        return URL.createObjectURL(video);
       }
 
       const file = await this.client.downloadFile(fileHash);
-      const data = await file.arrayBuffer();
-
-      const imageB64 = `data:${file.type};base64,${fromUint8Array(
-        new Uint8Array(data),
-      )}`;
 
       storeFile(fileHash, file);
 
-      return imageB64;
+      return URL.createObjectURL(file);
     },
-    () => [this.imageHash],
+    () => [this.videoHash],
   );
 
   renderImage(data: string) {
-    return html`<div style="flex:1"><img src="${data}" part="image" style="object-fit: cover; overflow: hidden; width: 100%; height: 100%"></img></div>`;
+    return html`<div style="flex:1">
+      <video
+        src="${data}"
+        controls
+        part="video"
+        style="object-fit: cover; overflow: hidden; width: 100%; height: 100%"
+      ></video>
+    </div>`;
   }
 
   render() {
-    return this._renderImage.render({
+    return this._renderVideo.render({
       complete: (d) => this.renderImage(d),
       pending: () =>
         html`<sl-skeleton

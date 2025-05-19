@@ -1,6 +1,9 @@
 import { css, html, LitElement } from "lit";
 import { property, customElement } from "lit/decorators.js";
-import { hashProperty, sharedStyles } from "@darksoil-studio/holochain-elements";
+import {
+  hashProperty,
+  sharedStyles,
+} from "@darksoil-studio/holochain-elements";
 import { consume } from "@lit/context";
 
 import "@shoelace-style/shoelace/dist/components/skeleton/skeleton.js";
@@ -14,7 +17,7 @@ import { localized, msg } from "@lit/localize";
 
 import { FileStorageClient } from "../file-storage-client";
 import { fileStorageClientContext } from "../context";
-import { getImage, storeImage } from "../local-storage";
+import { getFile, storeFile } from "../local-storage";
 
 @localized()
 @customElement("show-avatar-image")
@@ -44,19 +47,25 @@ export class ShowAvatarImage extends LitElement {
   _renderImage = new Task(
     this,
     async ([fileHash]) => {
-      const image = await getImage(fileHash!);
+      if (!fileHash) return "";
+      const image = await getFile(fileHash);
       if (image) {
-        return image;
+        const data = await image.arrayBuffer();
+
+        const imageB64 = `data:${image.type};base64,${fromUint8Array(
+          new Uint8Array(data),
+        )}`;
+        return imageB64;
       }
 
-      const file = await this.client.downloadFile(fileHash!);
+      const file = await this.client.downloadFile(fileHash);
       const data = await file.arrayBuffer();
 
       const imageB64 = `data:${file.type};base64,${fromUint8Array(
         new Uint8Array(data),
       )}`;
 
-      storeImage(fileHash!, imageB64);
+      storeFile(fileHash, file);
 
       return imageB64;
     },
