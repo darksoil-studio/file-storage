@@ -321,28 +321,28 @@
       "declarations": [
         {
           "kind": "function",
-          "name": "storeImage",
+          "name": "storeFile",
           "parameters": [
             {
-              "name": "imageHash",
+              "name": "fileHash",
               "type": {
                 "text": "EntryHash"
               }
             },
             {
-              "name": "image",
+              "name": "file",
               "type": {
-                "text": "string"
+                "text": "File"
               }
             }
           ]
         },
         {
           "kind": "function",
-          "name": "getImage",
+          "name": "getFile",
           "return": {
             "type": {
-              "text": "Promise<string | undefined>"
+              "text": "Promise<File | undefined>"
             }
           },
           "parameters": [
@@ -358,17 +358,17 @@
       "exports": [
         {
           "kind": "js",
-          "name": "storeImage",
+          "name": "storeFile",
           "declaration": {
-            "name": "storeImage",
+            "name": "storeFile",
             "module": "src/local-storage.ts"
           }
         },
         {
           "kind": "js",
-          "name": "getImage",
+          "name": "getFile",
           "declaration": {
-            "name": "getImage",
+            "name": "getFile",
             "module": "src/local-storage.ts"
           }
         }
@@ -1116,6 +1116,74 @@
           "declaration": {
             "name": "UploadFiles",
             "module": "src/elements/upload-files.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/elements/video-player.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "VideoPlayer",
+          "members": [
+            {
+              "kind": "field",
+              "name": "videoHash",
+              "type": {
+                "text": "EntryHash"
+              },
+              "description": "REQUIRED. The hash of the video to be rendered",
+              "attribute": "videoHash"
+            },
+            {
+              "kind": "method",
+              "name": "renderImage",
+              "parameters": [
+                {
+                  "name": "data",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "name": "videoHash",
+              "type": {
+                "text": "EntryHash"
+              },
+              "description": "REQUIRED. The hash of the video to be rendered",
+              "fieldName": "videoHash"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "video-player",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "VideoPlayer",
+          "declaration": {
+            "name": "VideoPlayer",
+            "module": "src/elements/video-player.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "video-player",
+          "declaration": {
+            "name": "VideoPlayer",
+            "module": "src/elements/video-player.ts"
           }
         }
       ]
