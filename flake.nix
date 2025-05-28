@@ -8,7 +8,8 @@
     scaffolding.url = "github:darksoil-studio/scaffolding/main-0.5";
     holochain-nix-builders.url =
       "github:darksoil-studio/holochain-nix-builders/main-0.5";
-    tauri-plugin-holochain.url = "github:darksoil-studio/p2p-shipyard/main-0.5";
+    tauri-plugin-holochain.url =
+      "github:darksoil-studio/tauri-plugin-holochain/main-0.5";
   };
 
   nixConfig = {
