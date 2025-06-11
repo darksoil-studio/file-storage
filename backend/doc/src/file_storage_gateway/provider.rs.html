@@ -200,7 +200,14 @@
 <a href="#199" id="199">199</a>
 <a href="#200" id="200">200</a>
 <a href="#201" id="201">201</a>
-<a href="#202" id="202">202</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::fmt::Debug;
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
+<a href="#204" id="204">204</a>
+<a href="#205" id="205">205</a>
+<a href="#206" id="206">206</a>
+<a href="#207" id="207">207</a>
+<a href="#208" id="208">208</a>
+<a href="#209" id="209">209</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::fmt::Debug;
 
 <span class="kw">use </span>hdk::prelude::<span class="kw-2">*</span>;
 
@@ -217,7 +224,7 @@
         <span class="macro">error!</span>(<span class="string">"Failed to remove inactive providers: {err:?}"</span>);
     }
 
-    <span class="prelude-val">Some</span>(Schedule::Persisted(<span class="string">"*/60 * * * * * *"</span>.into())) <span class="comment">// Every 60 seconds
+    <span class="prelude-val">Some</span>(Schedule::Persisted(<span class="string">"0 */5 * * * * *"</span>.into())) <span class="comment">// Every 60 seconds
 </span>}
 
 <span class="kw">pub fn </span>remove_inactive_providers() -&gt; ExternResult&lt;()&gt; {
@@ -240,10 +247,17 @@
         }
         <span class="kw">let </span>available = check_provider_is_available(<span class="kw-2">&amp;</span>provider);
 
-        <span class="kw">if </span>available.is_err() {
-            <span class="macro">warn!</span>(<span class="string">"Marking provider as not available: {provider}"</span>);
-            delete_link_relaxed(provider_link.create_link_hash)<span class="question-mark">?</span>;
+        <span class="kw">if </span>available.is_ok() {
+            <span class="kw">continue</span>;
         }
+        <span class="comment">// Double check to avoid false negatives
+        </span><span class="kw">let </span>available = check_provider_is_available(<span class="kw-2">&amp;</span>provider);
+
+        <span class="kw">if </span>available.is_ok() {
+            <span class="kw">continue</span>;
+        }
+        <span class="macro">warn!</span>(<span class="string">"Marking provider as not available: {provider}"</span>);
+        delete_link_relaxed(provider_link.create_link_hash)<span class="question-mark">?</span>;
     }
 
     <span class="kw">let </span>providers: Vec&lt;AgentPubKey&gt; = providers_links
