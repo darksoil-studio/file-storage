@@ -15,7 +15,7 @@ fn scheduled_remove_inactive_providers(_: Option<Schedule>) -> Option<Schedule> 
         error!("Failed to remove inactive providers: {err:?}");
     }
 
-    Some(Schedule::Persisted("*/60 * * * * * *".into())) // Every 60 seconds
+    Some(Schedule::Persisted("0 */5 * * * * *".into())) // Every 60 seconds
 }
 
 pub fn remove_inactive_providers() -> ExternResult<()> {
@@ -38,10 +38,17 @@ pub fn remove_inactive_providers() -> ExternResult<()> {
         }
         let available = check_provider_is_available(&provider);
 
-        if available.is_err() {
-            warn!("Marking provider as not available: {provider}");
-            delete_link_relaxed(provider_link.create_link_hash)?;
+        if available.is_ok() {
+            continue;
         }
+        // Double check to avoid false negatives
+        let available = check_provider_is_available(&provider);
+
+        if available.is_ok() {
+            continue;
+        }
+        warn!("Marking provider as not available: {provider}");
+        delete_link_relaxed(provider_link.create_link_hash)?;
     }
 
     let providers: Vec<AgentPubKey> = providers_links
