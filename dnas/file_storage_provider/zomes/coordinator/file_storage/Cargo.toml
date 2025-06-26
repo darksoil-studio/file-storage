@@ -12,6 +12,7 @@ name = "file_storage"
 [dependencies]
 hdk = { workspace = true }
 
+holochain_serialized_bytes = { workspace = true }
 serde = { workspace = true }
 
 file_storage_integrity = { path = "../../integrity/file_storage" }

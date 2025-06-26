@@ -12,5 +12,6 @@ members = ["dnas/*/zomes/integrity/*", "dnas/*/zomes/coordinator/*"]
 hdi = "0.6"
 hdk = "0.5"
 
-serde = "1.0.193"
+holochain_serialized_bytes = "*"
+serde = "1"
 
