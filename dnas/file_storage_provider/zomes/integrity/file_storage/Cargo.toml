@@ -12,6 +12,7 @@ name = "file_storage_integrity"
 [dependencies]
 hdi = { workspace = true }
 
+holochain_serialized_bytes = { workspace = true }
 serde = { workspace = true }
 
 [features]
