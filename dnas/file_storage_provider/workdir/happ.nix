@@ -3,7 +3,7 @@
 {
   perSystem = { inputs', lib, self', system, ... }: {
     packages.file_storage_provider_test_happ =
-      inputs.holochain-nix-builders.outputs.builders.${system}.happ {
+      inputs.holochain-utils.outputs.builders.${system}.happ {
         happManifest = ./happ.yaml;
 
         dnas = {
